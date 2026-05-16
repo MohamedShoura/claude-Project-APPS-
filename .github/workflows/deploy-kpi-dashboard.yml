@@ -1,0 +1,46 @@
+name: Deploy KPI Dashboard to GitHub Pages
+
+on:
+  push:
+    branches: ["claude/kpi-performance-app-gypH9"]
+  workflow_dispatch:
+
+permissions:
+  contents: write
+  pages: write
+  id-token: write
+
+concurrency:
+  group: "pages"
+  cancel-in-progress: false
+
+jobs:
+  build-and-deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: "18"
+          cache: "npm"
+          cache-dependency-path: kpi-performance-dashboard/package-lock.json
+
+      - name: Install dependencies
+        working-directory: kpi-performance-dashboard
+        run: npm ci
+
+      - name: Build app
+        working-directory: kpi-performance-dashboard
+        run: npm run build
+        env:
+          PUBLIC_URL: /claude-Project-APPS-
+
+      - name: Deploy to GitHub Pages
+        uses: peaceiris/actions-gh-pages@v4
+        with:
+          github_token: ${{ secrets.GITHUB_TOKEN }}
+          publish_dir: kpi-performance-dashboard/build
+          force_orphan: true
