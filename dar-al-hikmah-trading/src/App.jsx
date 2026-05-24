@@ -1,4 +1,5 @@
 import './index.css'
+import { LanguageProvider } from './context/LanguageContext'
 import Navbar from './components/Navbar'
 import Hero from './components/Hero'
 import Ticker from './components/Ticker'
@@ -14,19 +15,21 @@ import WhatsAppFloat from './components/WhatsAppFloat'
 
 export default function App() {
   return (
-    <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
-      <Navbar />
-      <Hero />
-      <Ticker />
-      <About />
-      <Products />
-      <Partners />
-      <Services />
-      <WhyUs />
-      <QuoteForm />
-      <Contact />
-      <Footer />
-      <WhatsAppFloat />
-    </div>
+    <LanguageProvider>
+      <div style={{ background: '#0a0a0a', minHeight: '100vh' }}>
+        <Navbar />
+        <Hero />
+        <Ticker />
+        <About />
+        <Products />
+        <Partners />
+        <Services />
+        <WhyUs />
+        <QuoteForm />
+        <Contact />
+        <Footer />
+        <WhatsAppFloat />
+      </div>
+    </LanguageProvider>
   )
 }
