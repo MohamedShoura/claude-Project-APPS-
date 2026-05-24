@@ -1,0 +1,68 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 200 200" width="200" height="200">
+  <defs>
+    <linearGradient id="goldGrad" x1="0%" y1="0%" x2="100%" y2="100%">
+      <stop offset="0%" style="stop-color:#A07828;stop-opacity:1" />
+      <stop offset="30%" style="stop-color:#E8C96B;stop-opacity:1" />
+      <stop offset="60%" style="stop-color:#C9A440;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:1" />
+    </linearGradient>
+    <linearGradient id="goldGrad2" x1="0%" y1="0%" x2="100%" y2="0%">
+      <stop offset="0%" style="stop-color:#8B6914;stop-opacity:1" />
+      <stop offset="50%" style="stop-color:#F0D060;stop-opacity:1" />
+      <stop offset="100%" style="stop-color:#8B6914;stop-opacity:1" />
+    </linearGradient>
+  </defs>
+
+  <!-- Outer gold ring -->
+  <circle cx="100" cy="100" r="97" fill="url(#goldGrad)" />
+  <!-- Inner white circle -->
+  <circle cx="100" cy="100" r="82" fill="white" />
+  <!-- Inner gold ring (thin) -->
+  <circle cx="100" cy="100" r="78" fill="none" stroke="url(#goldGrad2)" stroke-width="2" />
+
+  <!-- Islamic arch -->
+  <path d="M70 110 L70 75 Q100 50 130 75 L130 110 Z" fill="none" stroke="#1B5E20" stroke-width="2.5" />
+  <path d="M72 110 L72 77 Q100 54 128 77 L128 110 Z" fill="#f0f8f0" stroke="none" />
+
+  <!-- Palm tree trunk -->
+  <rect x="98" y="70" width="4" height="38" fill="#5D4037" rx="1" />
+
+  <!-- Palm leaves -->
+  <ellipse cx="100" cy="65" rx="12" ry="6" fill="#2E7D32" transform="rotate(-30 100 65)" />
+  <ellipse cx="100" cy="65" rx="12" ry="6" fill="#388E3C" transform="rotate(0 100 65)" />
+  <ellipse cx="100" cy="65" rx="12" ry="6" fill="#2E7D32" transform="rotate(30 100 65)" />
+  <ellipse cx="100" cy="65" rx="10" ry="5" fill="#43A047" transform="rotate(-60 100 65)" />
+  <ellipse cx="100" cy="65" rx="10" ry="5" fill="#43A047" transform="rotate(60 100 65)" />
+
+  <!-- Dates on palm -->
+  <circle cx="100" cy="70" r="3" fill="#F57F17" />
+  <circle cx="96" cy="72" r="2.5" fill="#EF6C00" />
+  <circle cx="104" cy="72" r="2.5" fill="#EF6C00" />
+
+  <!-- Wheat (left of tree) -->
+  <line x1="85" y1="105" x2="82" y2="80" stroke="#F9A825" stroke-width="1.5" />
+  <ellipse cx="82" cy="80" rx="3" ry="5" fill="#F9A825" transform="rotate(-10 82 80)" />
+  <ellipse cx="80" cy="86" rx="2.5" ry="4" fill="#F9A825" transform="rotate(-15 80 86)" />
+  <ellipse cx="84" cy="86" rx="2.5" ry="4" fill="#F9A825" transform="rotate(-5 84 86)" />
+
+  <!-- Olive branch (right of tree) -->
+  <line x1="115" y1="105" x2="118" y2="82" stroke="#33691E" stroke-width="1.5" />
+  <ellipse cx="118" cy="84" rx="4" ry="2.5" fill="#558B2F" transform="rotate(30 118 84)" />
+  <ellipse cx="116" cy="90" rx="4" ry="2.5" fill="#558B2F" transform="rotate(20 116 90)" />
+  <ellipse cx="120" cy="90" rx="4" ry="2.5" fill="#558B2F" transform="rotate(40 120 90)" />
+  <circle cx="115" cy="94" r="2" fill="#689F38" />
+  <circle cx="118" cy="97" r="2" fill="#558B2F" />
+
+  <!-- Arch base line -->
+  <line x1="68" y1="110" x2="132" y2="110" stroke="#1B5E20" stroke-width="2" />
+
+  <!-- Arabic text area -->
+  <text x="100" y="130" font-family="'Segoe UI', Arial, sans-serif" font-size="9" font-weight="bold" fill="#1B5E20" text-anchor="middle">دار الحكمة للتجارة</text>
+  <text x="100" y="142" font-family="'Segoe UI', Arial, sans-serif" font-size="6" fill="#C9A440" text-anchor="middle">ذ.م.م.ش.و</text>
+
+  <!-- Bottom gold band text -->
+  <path id="bottomArc" d="M 20,100 A 80,80 0 0,0 180,100" fill="none" />
+  <text font-family="Arial, sans-serif" font-size="8" font-weight="bold" fill="#1B5E20" letter-spacing="2">
+    <textPath href="#bottomArc" startOffset="8%">DAR AL HIKMAH TRADING LLC</textPath>
+  </text>
+</svg>
