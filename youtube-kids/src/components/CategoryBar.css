@@ -1,0 +1,47 @@
+.category-bar {
+  position: sticky;
+  top: 64px;
+  background: #fff;
+  z-index: 800;
+  border-bottom: 1px solid #f0f0f0;
+  padding: 0;
+}
+
+.category-scroll {
+  display: flex;
+  gap: 8px;
+  padding: 12px 20px;
+  overflow-x: auto;
+  scrollbar-width: none;
+}
+
+.category-scroll::-webkit-scrollbar { display: none; }
+
+.category-chip {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  padding: 8px 16px;
+  background: #f2f2f2;
+  border: none;
+  border-radius: 20px;
+  font-size: 14px;
+  font-weight: 500;
+  color: #282828;
+  cursor: pointer;
+  white-space: nowrap;
+  transition: all 0.2s;
+  flex-shrink: 0;
+}
+
+.category-chip:hover {
+  background: #e8e8e8;
+  transform: translateY(-1px);
+}
+
+.category-chip.active {
+  background: #282828;
+  color: #fff;
+}
+
+.cat-emoji { font-size: 16px; }
