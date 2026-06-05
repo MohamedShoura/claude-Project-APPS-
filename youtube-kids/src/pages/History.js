@@ -1,13 +1,13 @@
 import React from 'react';
 import { Link } from 'react-router-dom';
-import { FaHistory, FaTrash } from 'react-icons/fa';
+import { FaHistory } from 'react-icons/fa';
 import VideoCard from '../components/VideoCard';
 import { useApp } from '../context/AppContext';
 import { videos as allVideos } from '../data/videos';
 import './PageLayout.css';
 
 export default function History() {
-  const { watchHistory, addToHistory } = useApp();
+  const { watchHistory } = useApp();
 
   const historyVideos = watchHistory
     .map(id => allVideos.find(v => v.id === id))

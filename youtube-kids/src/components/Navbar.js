@@ -1,6 +1,6 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { FaSearch, FaTimes, FaBell, FaUserCircle, FaBars } from 'react-icons/fa';
+import { FaSearch, FaTimes, FaBell, FaBars } from 'react-icons/fa';
 import { useApp } from '../context/AppContext';
 import './Navbar.css';
 
