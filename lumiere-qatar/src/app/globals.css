@@ -1,0 +1,30 @@
+@import "tailwindcss";
+
+:root {
+  --ivory: #faf6f1;
+  --blush: #f2d7d9;
+  --rose-gold: #b76e79;
+  --beige: #e8dcc8;
+  --espresso: #3b2c28;
+  --white: #ffffff;
+}
+
+@theme inline {
+  --color-ivory: var(--ivory);
+  --color-blush: var(--blush);
+  --color-rose-gold: var(--rose-gold);
+  --color-beige: var(--beige);
+  --color-espresso: var(--espresso);
+  --font-serif: var(--font-playfair);
+  --font-sans: var(--font-inter);
+}
+
+body {
+  background: var(--ivory);
+  color: var(--espresso);
+  font-family: var(--font-inter), sans-serif;
+}
+
+h1, h2, h3, h4, .font-serif {
+  font-family: var(--font-playfair), serif;
+}
