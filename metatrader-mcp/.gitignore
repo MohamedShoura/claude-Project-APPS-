@@ -1,0 +1,14 @@
+# Real credentials — never commit these
+.env
+*.env
+!.env.example
+
+# Local, credential-bearing client configs
+claude_desktop_config.json
+*.local.json
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/

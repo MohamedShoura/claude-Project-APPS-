@@ -1,0 +1,13 @@
+{
+  "mcpServers": {
+    "metatrader": {
+      "command": "metatrader-mcp-server",
+      "args": [
+        "--login",     "YOUR_ACCOUNT_NUMBER",
+        "--password",  "YOUR_TRADING_PASSWORD",
+        "--server",    "YOUR_BROKER_SERVER_NAME",
+        "--transport", "stdio"
+      ]
+    }
+  }
+}
