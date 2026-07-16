@@ -1,0 +1,307 @@
+// ---------------------------------------------------------------------------
+// Gulf Hot Offers — recommended production database schema (PostgreSQL).
+// This is the target schema for when real retailer connectors are wired up.
+// The running demo app uses the in-memory demo data layer (src/data) and does
+// NOT require this database. To adopt it: `prisma migrate dev` then swap the
+// demo connectors for real ones (see README "Connecting real data").
+// ---------------------------------------------------------------------------
+
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum CountryCode { QA SA AE }
+enum IntegrationType { AFFILIATE_FEED OFFICIAL_API PRODUCT_FEED DEMO }
+enum ConnectorStatus { DEMO CONNECTED ERROR DISABLED }
+enum OfferStatus { DRAFT SCHEDULED ACTIVE EXPIRED REJECTED }
+enum AlertType { PRICE_DROP DISCOUNT BACK_IN_STOCK }
+enum UserRole { USER ADMIN EDITOR }
+
+model Country {
+  code      CountryCode @id
+  nameEn    String
+  nameAr    String
+  currency  String
+  retailers Retailer[]  @relation("RetailerCountries")
+  offers    Offer[]
+}
+
+model Retailer {
+  id              String          @id @default(cuid())
+  slug            String          @unique
+  nameEn          String
+  nameAr          String
+  integration     IntegrationType @default(DEMO)
+  connectorStatus ConnectorStatus @default(DEMO)
+  reliability     Int             @default(70)
+  externalBaseUrl String
+  logoColor       String?
+  countries       Country[]       @relation("RetailerCountries")
+  offers          Offer[]
+  coupons         Coupon[]
+  connectors      RetailerConnector[]
+  createdAt       DateTime        @default(now())
+  updatedAt       DateTime        @updatedAt
+}
+
+model Category {
+  id       String     @id @default(cuid())
+  slug     String     @unique
+  nameEn   String
+  nameAr   String
+  parentId String?
+  parent   Category?  @relation("CategoryTree", fields: [parentId], references: [id])
+  children Category[] @relation("CategoryTree")
+  products Product[]
+}
+
+model Brand {
+  id       String    @id @default(cuid())
+  slug     String    @unique
+  name     String
+  products Product[]
+}
+
+model Product {
+  id          String           @id @default(cuid())
+  slug        String           @unique
+  titleEn     String
+  titleAr     String
+  brandId     String?
+  brand       Brand?           @relation(fields: [brandId], references: [id])
+  categoryId  String?
+  category    Category?        @relation(fields: [categoryId], references: [id])
+  model       String?
+  gtin        String?          @unique
+  descriptionEn String?
+  descriptionAr String?
+  variants    ProductVariant[]
+  offers      Offer[]
+  createdAt   DateTime         @default(now())
+
+  @@index([brandId])
+  @@index([categoryId])
+}
+
+model ProductVariant {
+  id        String  @id @default(cuid())
+  productId String
+  product   Product @relation(fields: [productId], references: [id])
+  sku       String?
+  storage   String?
+  color     String?
+  size      String?
+  offers    Offer[]
+
+  @@index([productId])
+}
+
+model Offer {
+  id                   String       @id @default(cuid())
+  slug                 String       @unique
+  productId            String
+  product              Product      @relation(fields: [productId], references: [id])
+  variantId            String?
+  variant              ProductVariant? @relation(fields: [variantId], references: [id])
+  retailerId           String
+  retailer             Retailer     @relation(fields: [retailerId], references: [id])
+  countryCode          CountryCode
+  country              Country      @relation(fields: [countryCode], references: [code])
+  currency             String
+  price                Decimal      @db.Decimal(12, 2)
+  previousPrice        Decimal      @db.Decimal(12, 2)
+  rating               Float        @default(0)
+  reviews              Int          @default(0)
+  inStock              Boolean      @default(true)
+  freeShipping         Boolean      @default(false)
+  shippingFee          Decimal      @db.Decimal(12, 2) @default(0)
+  estimatedDeliveryDays Int         @default(3)
+  couponCode           String?
+  images               String[]
+  dealScore            Int          @default(0)
+  status               OfferStatus  @default(ACTIVE)
+  featured             Boolean      @default(false)
+  verified             Boolean      @default(false)
+  demo                 Boolean      @default(true)
+  externalUrl          String
+  expiresAt            DateTime?
+  lastUpdated          DateTime     @default(now())
+  createdAt            DateTime     @default(now())
+  priceHistory         PriceHistory[]
+  favourites           UserFavourite[]
+  clicks               ExternalClick[]
+  reports              UserReport[]
+
+  @@index([retailerId])
+  @@index([countryCode])
+  @@index([status])
+  @@index([dealScore])
+}
+
+model PriceHistory {
+  id        String   @id @default(cuid())
+  offerId   String
+  offer     Offer    @relation(fields: [offerId], references: [id])
+  price     Decimal  @db.Decimal(12, 2)
+  recordedAt DateTime @default(now())
+
+  @@index([offerId, recordedAt])
+}
+
+model Coupon {
+  id          String      @id @default(cuid())
+  code        String
+  retailerId  String
+  retailer    Retailer    @relation(fields: [retailerId], references: [id])
+  descriptionEn String
+  descriptionAr String
+  minOrder    Decimal?    @db.Decimal(12, 2)
+  countries   CountryCode[]
+  category    String
+  expiresAt   DateTime?
+  verified    Boolean     @default(false)
+  worked      Int         @default(0)
+  didntWork   Int         @default(0)
+  createdAt   DateTime    @default(now())
+
+  @@index([retailerId])
+}
+
+model User {
+  id           String          @id @default(cuid())
+  email        String          @unique
+  name         String?
+  role         UserRole        @default(USER)
+  provider     String          @default("email")
+  country      CountryCode?
+  locale       String          @default("en")
+  favourites   UserFavourite[]
+  alerts       PriceAlert[]
+  notifications Notification[]
+  reports      UserReport[]
+  createdAt    DateTime        @default(now())
+}
+
+model UserFavourite {
+  id      String @id @default(cuid())
+  userId  String
+  user    User   @relation(fields: [userId], references: [id])
+  offerId String
+  offer   Offer  @relation(fields: [offerId], references: [id])
+  createdAt DateTime @default(now())
+
+  @@unique([userId, offerId])
+}
+
+model PriceAlert {
+  id          String    @id @default(cuid())
+  userId      String
+  user        User      @relation(fields: [userId], references: [id])
+  productSlug String
+  type        AlertType @default(PRICE_DROP)
+  target      Decimal   @db.Decimal(12, 2)
+  currency    String
+  active      Boolean   @default(true)
+  createdAt   DateTime  @default(now())
+
+  @@index([userId])
+}
+
+model Notification {
+  id        String   @id @default(cuid())
+  userId    String
+  user      User     @relation(fields: [userId], references: [id])
+  channel   String   // email | push | whatsapp
+  title     String
+  body      String
+  sent      Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([userId])
+}
+
+model RetailerConnector {
+  id             String          @id @default(cuid())
+  retailerId     String
+  retailer       Retailer        @relation(fields: [retailerId], references: [id])
+  type           IntegrationType
+  status         ConnectorStatus @default(DEMO)
+  lastSuccessAt  DateTime?
+  productsImported Int           @default(0)
+  failedUpdates  Int             @default(0)
+  syncLogs       SyncLog[]
+
+  @@index([retailerId])
+}
+
+model SyncLog {
+  id          String   @id @default(cuid())
+  connectorId String
+  connector   RetailerConnector @relation(fields: [connectorId], references: [id])
+  ok          Boolean
+  imported    Int      @default(0)
+  failed      Int      @default(0)
+  message     String?
+  createdAt   DateTime @default(now())
+
+  @@index([connectorId, createdAt])
+}
+
+model ExternalClick {
+  id        String   @id @default(cuid())
+  offerId   String
+  offer     Offer    @relation(fields: [offerId], references: [id])
+  utmSource String?
+  utmMedium String?
+  utmCampaign String?
+  country   CountryCode?
+  createdAt DateTime @default(now())
+
+  @@index([offerId, createdAt])
+}
+
+model AffiliateConversion {
+  id         String   @id @default(cuid())
+  offerId    String?
+  retailerId String?
+  country    CountryCode?
+  commission Decimal  @db.Decimal(12, 2)
+  createdAt  DateTime @default(now())
+}
+
+model UserReport {
+  id        String   @id @default(cuid())
+  offerId   String
+  offer     Offer    @relation(fields: [offerId], references: [id])
+  userId    String?
+  user      User?    @relation(fields: [userId], references: [id])
+  reason    String
+  resolved  Boolean  @default(false)
+  createdAt DateTime @default(now())
+
+  @@index([offerId])
+}
+
+model AdminUser {
+  id        String   @id @default(cuid())
+  email     String   @unique
+  role      UserRole @default(ADMIN)
+  createdAt DateTime @default(now())
+}
+
+model AuditLog {
+  id        String   @id @default(cuid())
+  actor     String
+  action    String
+  entity    String
+  entityId  String?
+  meta      Json?
+  createdAt DateTime @default(now())
+
+  @@index([entity, entityId])
+}
