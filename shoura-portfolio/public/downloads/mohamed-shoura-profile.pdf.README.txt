@@ -1,0 +1,6 @@
+Placeholder for the downloadable company profile / CV.
+
+Replace this by adding a real PDF at:
+  public/downloads/mohamed-shoura-profile.pdf
+
+The "Download Profile" buttons link to /downloads/mohamed-shoura-profile.pdf
