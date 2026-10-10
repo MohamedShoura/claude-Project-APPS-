@@ -1,0 +1,5 @@
+node_modules
+out/*
+!out/nahj-promo-20s.mp4
+out/frames
+.remotion

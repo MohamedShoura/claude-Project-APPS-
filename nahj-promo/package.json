@@ -1,0 +1,24 @@
+{
+  "name": "nahj-promo",
+  "version": "1.0.0",
+  "private": true,
+  "description": "Nahj Consulting & Training — 20s vertical promo (Remotion)",
+  "scripts": {
+    "studio": "remotion studio src/index.ts",
+    "audio": "python3 scripts/make_audio.py",
+    "render": "remotion render src/index.ts NahjPromo out/nahj-promo-20s.mp4 --codec=h264 --crf=18 --pixel-format=yuv420p --audio-codec=aac --color-space=bt709",
+    "still": "remotion still src/index.ts NahjPromo out/still.png",
+    "master": "bash scripts/master_audio.sh out/nahj-promo-20s.mp4",
+    "build": "npm run audio && npm run render && npm run master"
+  },
+  "dependencies": {
+    "@fontsource/cairo": "^5.3.0",
+    "@remotion/cli": "^4.0.534",
+    "@remotion/fonts": "^4.0.534",
+    "@types/react": "^19.3.0",
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "remotion": "^4.0.534",
+    "typescript": "^7.0.2"
+  }
+}
