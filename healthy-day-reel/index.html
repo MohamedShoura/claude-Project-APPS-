@@ -1,0 +1,331 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>حركة وأكل متوازن</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@600;700;800;900&display=block" rel="stylesheet">
+<style>
+:root{
+  --g:#1e8449; --gd:#0e5530; --gl:#e9f6ee; --o:#ff8a1f; --od:#e46f00;
+  --ink:#123524; --w:#ffffff; --bg:#0c120e; --ui:#f4f7f5; --muted:#5d7466;
+}
+@media (prefers-color-scheme: dark){
+  :root:not([data-theme="light"]){ --bg:#0c120e; --ui:#18211c; }
+}
+:root[data-theme="dark"]{ --bg:#0c120e; --ui:#18211c; }
+*{box-sizing:border-box}
+html,body{margin:0;height:100%;background:var(--bg);color:#fff;font-family:Cairo,system-ui,sans-serif}
+body{display:flex;flex-direction:column;align-items:center;justify-content:center;gap:14px;padding:16px;min-height:100%}
+#frame{position:relative;overflow:hidden;border-radius:18px;box-shadow:0 20px 60px rgba(0,0,0,.45)}
+#stage{position:absolute;top:0;left:0;width:1080px;height:1920px;overflow:hidden;background:#fff;transform-origin:0 0}
+body.render{padding:0;gap:0;display:block;background:#000}
+body.render #frame{border-radius:0;box-shadow:none}
+body.render #controls{display:none}
+
+/* ---- photo shots ---- */
+.shot{position:absolute;inset:0;overflow:hidden;opacity:0}
+.shot img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transform-origin:50% 50%}
+.shade{position:absolute;inset:0;background:linear-gradient(180deg,rgba(0,0,0,.28) 0%,rgba(0,0,0,0) 22%,rgba(0,0,0,0) 45%,rgba(6,40,22,.70) 78%,rgba(6,40,22,.82) 100%)}
+
+/* ---- text ---- */
+.tag{position:absolute;top:210px;right:0;left:0;display:flex;justify-content:center}
+.tag span{background:rgba(255,255,255,.94);color:var(--gd);font-weight:800;font-size:34px;padding:8px 28px;border-radius:999px;box-shadow:0 6px 20px rgba(0,0,0,.18)}
+.tag span b{color:var(--o)}
+.head{position:absolute;left:100px;right:150px;display:flex;flex-direction:column;align-items:center;gap:18px;text-align:center}
+.pill{display:inline-block;font-weight:900;line-height:1.25;padding:6px 34px 14px;border-radius:28px;color:#fff;white-space:nowrap;box-shadow:0 10px 30px rgba(0,0,0,.25)}
+.pill.g{background:var(--g)}
+.pill.o{background:var(--o)}
+.pill.w{background:#fff;color:var(--gd)}
+.chip{position:absolute;left:100px;right:150px;display:flex;justify-content:center}
+.chip span{display:inline-flex;align-items:center;gap:12px;background:rgba(255,255,255,.95);color:var(--gd);font-weight:800;font-size:40px;padding:6px 30px 10px;border-radius:999px;box-shadow:0 8px 24px rgba(0,0,0,.2)}
+.chip i{width:16px;height:16px;border-radius:50%;background:var(--o);display:inline-block}
+
+/* ---- meals board ---- */
+#meals{position:absolute;inset:0;opacity:0;background:
+  radial-gradient(circle at 85% 8%,#d8f0e1 0 260px,transparent 261px),
+  radial-gradient(circle at 8% 92%,#ffe7cf 0 240px,transparent 241px),
+  linear-gradient(180deg,#f7fbf8,#eef7f1)}
+#meals .title{position:absolute;top:270px;left:100px;right:150px;text-align:center}
+#meals .title h2{margin:0;font-size:68px;font-weight:900;color:var(--gd);line-height:1.2}
+#meals .title h2 em{font-style:normal;color:var(--o)}
+.card{position:absolute;left:90px;right:150px;height:290px;background:#fff;border-radius:40px;box-shadow:0 18px 40px rgba(14,85,48,.14);display:flex;align-items:center;gap:30px;padding:0 26px;opacity:0;border:4px solid transparent}
+.card .pic{width:238px;height:238px;border-radius:30px;overflow:hidden;flex:none}
+.card .pic img{width:100%;height:100%;object-fit:cover}
+.card .txt{flex:1;display:flex;flex-direction:column;align-items:flex-start;gap:6px}
+.card .lbl{background:var(--o);color:#fff;font-weight:800;font-size:36px;padding:0 24px 6px;border-radius:999px;line-height:1.5}
+.card .items{font-weight:900;font-size:46px;line-height:1.3;color:var(--ink)}
+.card .items b{color:var(--g);font-weight:900}
+#note{position:absolute;top:1395px;left:100px;right:150px;display:flex;justify-content:center;opacity:0}
+#note span{font-size:36px;font-weight:700;color:var(--gd);background:#fff;border:2px solid #cfe8d8;padding:6px 26px 10px;border-radius:999px}
+
+/* ---- end card ---- */
+#endbg{position:absolute;inset:0;background:radial-gradient(circle at 50% 38%,#26a35b 0%,#178043 45%,#0d5a31 100%);clip-path:circle(0% at 50% 60%)}
+#endbg .ring{position:absolute;border-radius:50%;border:3px solid rgba(255,255,255,.12)}
+#mark{position:absolute;top:330px;left:0;right:0;display:flex;justify-content:center;opacity:0}
+#cta{position:absolute;top:1190px;left:100px;right:150px;display:flex;justify-content:center;opacity:0}
+#cta span{display:inline-flex;align-items:center;gap:16px;background:var(--o);color:#fff;font-weight:900;font-size:50px;padding:10px 40px 18px;border-radius:999px;box-shadow:0 14px 34px rgba(0,0,0,.25)}
+#brand{position:absolute;top:1330px;left:0;right:0;text-align:center;font-weight:700;font-size:34px;color:rgba(255,255,255,.85);opacity:0}
+
+/* ---- controls ---- */
+#controls{display:flex;align-items:center;gap:10px;background:var(--ui);color:inherit;padding:10px 14px;border-radius:14px;width:min(100%,460px)}
+#controls button{font-family:inherit;font-weight:800;font-size:15px;border:0;border-radius:10px;padding:8px 14px;background:var(--g);color:#fff;cursor:pointer}
+#controls button.alt{background:var(--o)}
+#scrub{flex:1;accent-color:var(--o)}
+#time{font-variant-numeric:tabular-nums;font-size:14px;min-width:84px;text-align:center;direction:ltr}
+</style>
+</head>
+<body>
+<div id="frame"><div id="stage">
+  <!-- photo shots are injected here -->
+  <div id="shots"></div>
+
+  <div id="meals">
+    <div class="title"><h2>نموذج <em>يوم</em> غذائي</h2></div>
+    <div class="card" id="c1" style="top:430px"><div class="pic"><img data-k="breakfast" alt=""></div>
+      <div class="txt"><span class="lbl">فطار</span><div class="items">شوفان <b>+</b> زبادي <b>+</b> فاكهة</div></div></div>
+    <div class="card" id="c2" style="top:750px"><div class="pic"><img data-k="lunch" alt=""></div>
+      <div class="txt"><span class="lbl">غداء</span><div class="items">دجاج مشوي<br><b>+</b> أرز <b>+</b> سلطة</div></div></div>
+    <div class="card" id="c3" style="top:1070px"><div class="pic"><img data-k="dinner" alt=""></div>
+      <div class="txt"><span class="lbl">عشاء</span><div class="items">خبز حبوب كاملة<br><b>+</b> حمص <b>+</b> خضار</div></div></div>
+    <div id="note"><span>نموذج عام — الكميات حسب احتياجك</span></div>
+  </div>
+
+  <div id="endbg"></div>
+
+  <div class="tag" id="tag"><span>حركة <b>و</b>أكل متوازن</span></div>
+
+  <div class="chip" id="chip" style="top:1010px"><span><i></i><em id="chipTxt" style="font-style:normal"></em></span></div>
+
+  <div class="head" id="h1" style="top:1120px"><span class="pill g" style="font-size:96px">يومك الصحي</span><span class="pill o" style="font-size:96px">يبدأ بخطوة!</span></div>
+  <div class="head" id="h2" style="top:1120px"><span class="pill g" style="font-size:96px">اتحرّك</span><span class="pill o" style="font-size:88px">على قدّ قدرتك</span></div>
+  <div class="head" id="h3a" style="top:1120px"><span class="pill g" style="font-size:96px">اشرب مياه…</span></div>
+  <div class="head" id="h3b" style="top:1290px"><span class="pill o" style="font-size:96px">وجهّز أكلك</span></div>
+  <div class="head" id="h4" style="top:1120px"><span class="pill w" style="font-size:96px">ابدأ بخطوة…</span><span class="pill o" style="font-size:96px">وكرّرها بكرة</span></div>
+
+  <div id="mark">
+    <svg width="210" height="210" viewBox="0 0 210 210" aria-hidden="true">
+      <circle cx="105" cy="105" r="100" fill="#fff"/>
+      <path d="M105 160c-30-6-48-30-44-62 30 2 50 22 44 62z" fill="#1e8449"/>
+      <path d="M108 160c4-34 22-56 50-60 2 32-18 56-50 60z" fill="#2fb36a"/>
+      <circle cx="80" cy="64" r="15" fill="#ff8a1f"/>
+      <circle cx="122" cy="52" r="11" fill="#ff8a1f"/>
+    </svg>
+  </div>
+  <div id="cta"><span>
+    <svg width="44" height="52" viewBox="0 0 44 52" aria-hidden="true"><path d="M6 4h32a2 2 0 0 1 2 2v42l-18-12-18 12V6a2 2 0 0 1 2-2z" fill="#fff"/></svg>
+    احفظ الفيديو وابدأ يومك</span></div>
+  <div id="brand">حركة وأكل متوازن</div>
+</div></div>
+
+<div id="controls" role="group" aria-label="التحكم">
+  <button id="play">تشغيل</button>
+  <button id="restart" class="alt">إعادة</button>
+  <input id="scrub" type="range" min="0" max="20" step="0.01" value="0" aria-label="الزمن">
+  <span id="time">0.00 / 20.00</span>
+</div>
+<audio id="audio" preload="auto"></audio>
+
+<script>
+/* ===== Timeline: one pure function render(t) drives every frame (0 ≤ t ≤ 20s) ===== */
+const DUR = 20;
+const Q = new URLSearchParams(location.search);
+const RENDER = Q.has('render');
+if (RENDER) document.body.classList.add('render');
+
+// Assets: generated on Higgsfield. ?assets=dir/ switches to local copies (used by the renderer).
+const REMOTE = 'https://d8j0ntlcm91z4.cloudfront.net/user_3F4xoDp18RAKV8XUZ3yRGoEXYw4/';
+const ASSETS = {
+  prep:      ['s01_prep.png',     'hf_20261012_170743_0518e3be-c512-494d-ab18-8dd3a058d2fc.png'],
+  bowl:      ['s02_bowl.png',     'hf_20261012_170744_0f4198c7-559e-45f9-a150-8bd84eb0b712.png'],
+  walk:      ['s03_walk.png',     'hf_20261012_170742_40f7799c-d983-4c56-9b22-03053adcc57e.png'],
+  squat:     ['s04_squat.png',    'hf_20261012_170803_bc9f25aa-984c-4b93-99f1-687333e7799c.png'],
+  stretch:   ['s05_stretch.png',  'hf_20261012_170742_99d93310-cc86-4120-aa93-65e5f09a8831.png'],
+  breakfast: ['f1_breakfast.png', 'hf_20261012_170803_9b94578a-16a2-48d7-91e1-5376fa9b13f3.png'],
+  lunch:     ['f2_lunch.png',     'hf_20261012_170744_caf9f784-e817-4da9-ae1d-77996973d596.png'],
+  dinner:    ['f3_dinner.png',    'hf_20261012_170744_3c922eef-5311-4067-85e9-1cc0dd237ef2.png'],
+  water:     ['s09_water.png',    'hf_20261012_170743_20225ab5-ba94-4bbd-9a93-54444ab46eac.png'],
+  box:       ['s10_prep_box.png', 'hf_20261012_170803_b0b14bc4-1b61-4c79-8bd4-71d77e10a9d3.png'],
+  energy:    ['s11_energy.png',   'hf_20261012_170743_ba6b58ad-e57f-4e1d-b17c-c96ab3314584.png'],
+};
+const LOCAL = Q.get('assets');
+const src = k => LOCAL ? LOCAL + ASSETS[k][0] : REMOTE + ASSETS[k][1];
+const AUDIO = Q.get('audio') || 'https://d2ol7oe51mr4n9.cloudfront.net/user_3F4xoDp18RAKV8XUZ3yRGoEXYw4/96341f14-8939-4b65-a702-9faa0b21cb9f.mp3';
+
+// Shots: s = start of entrance, kb = Ken Burns [scaleFrom, scaleTo, yFrom%, yTo%], fx = entrance style
+const SHOTS = [
+  {k:'prep',    s:0.00, kb:[1.06,1.16, 0,-2], fx:'none'},
+  {k:'bowl',    s:1.45, kb:[1.22,1.04, 0, 0], fx:'whip'},
+  {k:'walk',    s:2.95, kb:[1.04,1.14, 0,-2], fx:'slide'},
+  {k:'squat',   s:4.15, kb:[1.10,1.02, 0, 0], fx:'slide'},
+  {k:'stretch', s:5.30, kb:[1.03,1.12,-1, 0], fx:'slide'},
+  {k:'water',   s:14.30,kb:[1.05,1.14, 0,-1], fx:'slide'},
+  {k:'box',     s:15.45,kb:[1.12,1.03, 0, 0], fx:'slide'},
+  {k:'energy',  s:16.80,kb:[1.02,1.12, 0,-2], fx:'whip'},
+];
+const MEALS_IN = 6.62, MEALS_OUT = 14.30, END_IN = 18.45;
+
+const cl=(x,a=0,b=1)=>Math.min(b,Math.max(a,x));
+const p=(t,s,d)=>cl((t-s)/d);
+const eo=x=>1-Math.pow(1-x,3);
+const eio=x=>x<.5?4*x*x*x:1-Math.pow(-2*x+2,3)/2;
+const eb=x=>{const c1=1.6,c3=c1+1;return 1+c3*Math.pow(x-1,3)+c1*Math.pow(x-1,2)};
+const lerp=(a,b,x)=>a+(b-a)*x;
+const $=id=>document.getElementById(id);
+
+// Build shot layers
+const shotsEl = $('shots');
+SHOTS.forEach((sh,i)=>{
+  const d=document.createElement('div'); d.className='shot';
+  const img=document.createElement('img'); img.src=src(sh.k); img.alt='';
+  const sd=document.createElement('div'); sd.className='shade';
+  d.append(img,sd); shotsEl.append(d); sh.el=d; sh.img=img;
+  sh.e = (SHOTS[i+1] ? SHOTS[i+1].s : DUR) + 0.35;
+});
+document.querySelectorAll('img[data-k]').forEach(im=>im.src=src(im.dataset.k));
+
+// Show/hide helper for pop-in text blocks: returns {o, y, s}
+function pop(t, tin, tout, dur=0.35, outDur=0.25){
+  const a=p(t,tin,dur), b=tout==null?0:p(t,tout,outDur);
+  return {o: cl(a*3)*(1-b), y: (1-eo(a))*60 - eo(b)*30, s: lerp(.82,1,eb(a))};
+}
+function place(el, st, extra=''){
+  el.style.opacity=st.o; el.style.visibility=st.o<=0.001?'hidden':'visible';
+  el.style.transform=`translateY(${st.y}px) scale(${st.s})${extra}`;
+}
+// Staggered lines inside a .head block
+function lines(el, t, tin, tout){
+  [...el.children].forEach((c,i)=>{
+    const st=pop(t, tin+i*0.18, tout);
+    c.style.opacity=st.o; c.style.transform=`translateY(${st.y}px) scale(${st.s})`;
+  });
+  el.style.visibility = (t>=tin && (tout==null || t<tout+0.3))?'visible':'hidden';
+}
+
+function render(t){
+  t=cl(t,0,DUR);
+  // --- photo shots ---
+  SHOTS.forEach(sh=>{
+    const vis = t>=sh.s && t<sh.e;
+    sh.el.style.visibility = vis?'visible':'hidden';
+    if(!vis) return;
+    const life=p(t,sh.s,sh.e-sh.s), k=eio(life);
+    const sc=lerp(sh.kb[0],sh.kb[1],k), ty=lerp(sh.kb[2],sh.kb[3],k);
+    let o=1, extra='', blur=0;
+    if(sh.s>0){
+      const a=p(t,sh.s,sh.fx==='whip'?0.22:0.32), e=eo(a);
+      o=a;
+      if(sh.fx==='whip'){ extra=` scale(${lerp(1.35,1,e)})`; blur=(1-e)*14; }
+      else { extra=` translateX(${(1-e)*-120}px)`; }
+    }
+    sh.el.style.opacity=o;
+    sh.el.style.filter = blur>0.2?`blur(${blur}px)`:'none';
+    sh.img.style.transform=`scale(${sc}) translateY(${ty}%)${extra}`;
+  });
+
+  // --- meals board (7–14s) ---
+  const m=$('meals');
+  const mi=p(t,MEALS_IN,0.35), mo=p(t,MEALS_OUT,0.3);
+  m.style.opacity = mi*(1-mo);
+  m.style.visibility = (t>=MEALS_IN && t<MEALS_OUT+0.35)?'visible':'hidden';
+  m.style.transform = `scale(${lerp(1.04,1,eo(mi))})`;
+  const CARDS=[['c1',6.78],['c2',9.26],['c3',11.56]];
+  CARDS.forEach(([id,s],i)=>{
+    const c=$(id), a=p(t,s,0.45), e=eb(a);
+    c.style.opacity=cl(a*2.5);
+    c.style.transform=`translateX(${(1-eo(a))*180}px) scale(${lerp(.9,1,e)})`;
+    const next = CARDS[i+1] ? CARDS[i+1][1] : MEALS_OUT;
+    const active = t>=s && t<next;
+    c.style.borderColor = active ? 'var(--o)' : 'transparent';
+    c.querySelector('.pic img').style.transform=`scale(${lerp(1.15,1.0,eo(p(t,s,1.6)))})`;
+  });
+  const n=$('note'); const na=p(t,7.3,0.4);
+  n.style.opacity=na; n.style.transform=`translateY(${(1-eo(na))*20}px)`;
+
+  // --- end background (circle reveal) ---
+  const er=eio(p(t,END_IN,0.6));
+  $('endbg').style.clipPath=`circle(${er*130}% at 50% 62%)`;
+
+  // --- top tag (whole video until end card) ---
+  const tg=pop(t,0.15,END_IN,0.4,0.3);
+  const inMeals=t>=MEALS_IN&&t<MEALS_OUT; tg.o*= inMeals?1-cl(p(t,MEALS_IN,0.2)):(t>=MEALS_OUT?cl(p(t,MEALS_OUT,0.3)):1);
+  place($('tag'),tg);
+
+  // --- movement chip ---
+  const chip=$('chip'), ct=$('chipTxt');
+  const CH=[[3.15,'مشي'],[4.30,'سكوات بجانب الكرسي'],[5.45,'تمدد خفيف']];
+  let cur=null; CH.forEach(c=>{ if(t>=c[0]) cur=c; });
+  if(cur && t<6.62){
+    ct.textContent=cur[1];
+    const a=p(t,cur[0],0.3), b=p(t,6.45,0.2);
+    chip.style.visibility='visible'; chip.style.opacity=cl(a*3)*(1-b);
+    chip.style.transform=`scale(${lerp(.85,1,eb(a))})`;
+  } else { chip.style.visibility='hidden'; }
+
+  // --- headlines ---
+  lines($('h1'),t,0.30,2.75);
+  lines($('h2'),t,3.20,6.40);
+  lines($('h3a'),t,14.60,16.60);
+  lines($('h3b'),t,15.55,16.60);
+  lines($('h4'),t,16.95,null);
+  // end card: headline lifts into final position
+  const lift=eio(p(t,END_IN,0.6));
+  $('h4').style.top = lerp(1120,700,lift)+'px';
+
+  // --- end card elements ---
+  const mk=pop(t,18.65,null,0.45); place($('mark'),mk);
+  const ca=pop(t,18.95,null,0.45); place($('cta'),ca);
+  const br=p(t,19.2,0.35); $('brand').style.opacity=br;
+}
+
+/* ===== Player (preview only) ===== */
+const stage=$('stage'), frame=$('frame');
+function fit(){
+  let s;
+  if(RENDER){ s=1; }
+  else {
+    const maxH=window.innerHeight-110, maxW=window.innerWidth-32;
+    s=Math.min(maxW/1080, maxH/1920, 1);
+  }
+  stage.style.transform=`scale(${s})`;
+  frame.style.width=1080*s+'px'; frame.style.height=1920*s+'px';
+}
+addEventListener('resize',fit); fit();
+
+const audio=$('audio');
+let playing=false, t0=0, tStart=0, now=0, useAudio=false;
+audio.src=AUDIO;
+audio.addEventListener('canplaythrough',()=>{useAudio=true;},{once:true});
+audio.addEventListener('error',()=>{useAudio=false;});
+const playBtn=$('play'), scrub=$('scrub'), timeEl=$('time');
+function setT(t){ now=cl(t,0,DUR); render(now); scrub.value=now; timeEl.textContent=now.toFixed(2)+' / 20.00'; }
+function loop(){
+  if(!playing) return;
+  const t = useAudio && !audio.paused ? audio.currentTime : tStart+(performance.now()-t0)/1000;
+  if(t>=DUR){ setT(DUR); pause(); return; }
+  setT(t); requestAnimationFrame(loop);
+}
+function play(){
+  if(now>=DUR) now=0;
+  playing=true; playBtn.textContent='إيقاف';
+  tStart=now; t0=performance.now();
+  if(useAudio){ audio.currentTime=now; audio.play().catch(()=>{useAudio=false;}); }
+  requestAnimationFrame(loop);
+}
+function pause(){ playing=false; playBtn.textContent='تشغيل'; audio.pause(); }
+playBtn.onclick=()=>playing?pause():play();
+$('restart').onclick=()=>{ pause(); setT(0); play(); };
+scrub.oninput=()=>{ const was=playing; pause(); setT(+scrub.value); if(was) play(); };
+
+// Renderer hook: resolves once fonts + images are ready, then draws frame t.
+window.__ready = (async()=>{
+  await document.fonts.ready;
+  await Promise.all([...document.images].map(im=>im.decode().catch(()=>{})));
+})();
+window.__seek = t => render(t);
+setT(0);
+</script>
+</body>
+</html>
