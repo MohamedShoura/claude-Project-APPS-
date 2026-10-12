@@ -1,0 +1,201 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+<meta charset="utf-8">
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@500;600;700;800;900&display=block" rel="stylesheet">
+<style>
+  :root { --bord:#6A0F24; --bord2:#4a0918; --gold:#C9A25D; --gold2:#e3c68e; --white:#ffffff; }
+  * { margin:0; padding:0; box-sizing:border-box; }
+  html, body { width:1080px; height:1920px; background:transparent; overflow:hidden; position:relative; font-family:'Cairo', sans-serif; }
+  .abs { position:absolute; }
+  .layer { position:absolute; inset:0; opacity:0; will-change:opacity, transform; }
+
+  /* lower gradient for legibility over footage */
+  #grad { position:absolute; left:0; right:0; bottom:0; height:1100px;
+          background:linear-gradient(to top, rgba(20,4,9,.86) 0%, rgba(20,4,9,.62) 38%, rgba(20,4,9,0) 100%); opacity:0; }
+  #gradTop { position:absolute; left:0; right:0; top:0; height:520px;
+          background:linear-gradient(to bottom, rgba(20,4,9,.62) 0%, rgba(20,4,9,0) 100%); opacity:0; }
+
+  /* text block safe area: x 90..930 (right 150 kept clear for Reels buttons), y 1080..1480 */
+  .block { position:absolute; left:150px; right:90px; text-align:center; color:var(--white); }
+  .h1 { font-size:84px; font-weight:800; line-height:1.25; text-shadow:0 4px 24px rgba(0,0,0,.45); }
+  .h2 { font-size:64px; font-weight:800; line-height:1.3; text-shadow:0 4px 24px rgba(0,0,0,.45); }
+  .gold { color:var(--gold); }
+  .rule { height:5px; width:220px; margin:26px auto 0; border-radius:3px;
+          background:linear-gradient(90deg, transparent, var(--gold), transparent); transform-origin:center; }
+
+  /* chips */
+  .chips { position:absolute; left:110px; right:110px; top:1330px; display:flex; justify-content:center; gap:22px; }
+  .chip { display:flex; align-items:center; gap:12px; padding:16px 24px; border-radius:60px;
+          background:rgba(106,15,36,.88); border:2px solid rgba(201,162,93,.85); color:#fff;
+          font-size:31px; font-weight:700; white-space:nowrap; opacity:0; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+  .chip svg { width:34px; height:34px; flex:none; }
+
+  /* steps */
+  #howTitle { position:absolute; left:110px; right:110px; top:290px; text-align:center; }
+  .pill { display:inline-block; padding:14px 40px; border-radius:60px; background:rgba(106,15,36,.92);
+          border:2px solid var(--gold); color:#fff; font-size:44px; font-weight:800; box-shadow:0 10px 30px rgba(0,0,0,.35); }
+  .step { position:absolute; left:110px; right:110px; top:1150px; opacity:0; }
+  .card { display:flex; align-items:center; gap:30px; padding:34px 40px; border-radius:34px;
+          background:linear-gradient(135deg, rgba(106,15,36,.95), rgba(74,9,24,.95));
+          border:2px solid rgba(201,162,93,.9); box-shadow:0 18px 50px rgba(0,0,0,.45); }
+  .icon { width:132px; height:132px; flex:none; border-radius:50%; background:rgba(201,162,93,.14);
+          border:3px solid var(--gold); display:flex; align-items:center; justify-content:center; position:relative; }
+  .icon svg { width:70px; height:70px; }
+  .num { position:absolute; top:-14px; left:-10px; width:52px; height:52px; border-radius:50%;
+         background:var(--gold); color:var(--bord2); font-size:30px; font-weight:900; display:flex;
+         align-items:center; justify-content:center; }
+  .ctext { text-align:right; color:#fff; }
+  .ctitle { font-size:58px; font-weight:800; line-height:1.25; }
+  .csub { font-size:33px; font-weight:600; color:var(--gold2); line-height:1.45; margin-top:6px; }
+  .dots { position:absolute; left:0; right:0; top:1480px; display:flex; justify-content:center; gap:16px; }
+  .dot { width:16px; height:16px; border-radius:50%; background:rgba(255,255,255,.35); }
+  .dot.on { background:var(--gold); width:46px; border-radius:10px; }
+
+  /* end card */
+  #end { position:absolute; inset:0; opacity:0; overflow:hidden;
+         background: radial-gradient(1100px 1100px at 50% 42%, #7d1530 0%, var(--bord) 45%, #3d0714 100%); }
+  #end .frame { position:absolute; inset:70px; border:2px solid rgba(201,162,93,.45); border-radius:28px; }
+  #end .arc { position:absolute; left:50%; top:760px; width:780px; height:780px; margin-left:-390px; margin-top:-390px;
+              border-radius:50%; border:2px solid rgba(201,162,93,.28); }
+  #end .arc2 { width:600px; height:600px; margin-left:-300px; margin-top:-300px; border-color:rgba(201,162,93,.18); }
+  #sheen { position:absolute; top:0; bottom:0; width:260px; left:-300px;
+           background:linear-gradient(100deg, transparent, rgba(227,198,142,.16), transparent); transform:skewX(-12deg); }
+  #logo { position:absolute; left:0; right:0; top:560px; text-align:center; }
+  #logo .word { font-size:230px; font-weight:900; line-height:1; color:var(--gold);
+                background:linear-gradient(180deg, #ecd3a0 0%, #C9A25D 55%, #a9813f 100%);
+                -webkit-background-clip:text; background-clip:text; -webkit-text-fill-color:transparent; }
+  #logo .tag { margin-top:22px; font-size:42px; font-weight:600; color:#f3e6cc; letter-spacing:0; }
+  #endRule { position:absolute; left:50%; top:1035px; width:360px; margin-left:-180px; height:4px; border-radius:2px;
+             background:linear-gradient(90deg, transparent, var(--gold), transparent); }
+  #endMain { position:absolute; left:110px; right:110px; top:1100px; text-align:center; color:#fff; font-size:74px; font-weight:800; line-height:1.3; }
+  #endSub { position:absolute; left:130px; right:130px; top:1255px; text-align:center; }
+  #endSub span { display:inline-block; padding:18px 44px; border-radius:60px; background:var(--gold);
+                 color:var(--bord2); font-size:42px; font-weight:800; box-shadow:0 12px 34px rgba(0,0,0,.35); }
+</style>
+</head>
+<body>
+<div id="gradTop"></div>
+<div id="grad"></div>
+
+<!-- 0–3 hook -->
+<div class="layer" id="L1">
+  <div class="block" style="top:1180px">
+    <div class="h1">مهام كثيرة…<br><span class="gold">ووقت أقل؟</span></div>
+    <div class="rule" id="L1rule"></div>
+  </div>
+</div>
+
+<!-- 3–7 value -->
+<div class="layer" id="L2">
+  <div class="block" style="top:1150px">
+    <div class="h1">لخّص <span class="gold">•</span> حلّل <span class="gold">•</span> أنجز</div>
+  </div>
+  <div class="chips">
+    <div class="chip" id="c1"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M14 3H7a2 2 0 0 0-2 2v14a2 2 0 0 0 2 2h10a2 2 0 0 0 2-2V8z"/><path d="M14 3v5h5"/><path d="M9 13h6M9 17h4"/></svg>تلخيص تقرير</div>
+    <div class="chip" id="c2"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><path d="M4 20V10M10 20V4M16 20v-7M22 20H2"/></svg>تحليل بيانات</div>
+    <div class="chip" id="c3"><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2"/><path d="m3 7 9 6 9-6"/></svg>صياغة رسالة</div>
+  </div>
+</div>
+
+<!-- 7–14 how to learn -->
+<div class="layer" id="how">
+  <div id="howTitle"><span class="pill">كيف تتعلّم باحتراف؟</span></div>
+</div>
+<div class="step" id="s1"><div class="card">
+  <div class="icon"><span class="num">١</span><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M2 4h7a3 3 0 0 1 3 3v13a2 2 0 0 0-2-2H2z"/><path d="M22 4h-7a3 3 0 0 0-3 3v13a2 2 0 0 1 2-2h8z"/></svg></div>
+  <div class="ctext"><div class="ctitle">افهم الأساسيات</div><div class="csub">تعلّم موجّه بخطوات واضحة</div></div>
+</div></div>
+<div class="step" id="s2"><div class="card">
+  <div class="icon"><span class="num">٢</span><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><path d="M12 20h9"/><path d="M16.5 3.5a2.1 2.1 0 0 1 3 3L7 19l-4 1 1-4z"/></svg></div>
+  <div class="ctext"><div class="ctitle">اكتب أوامر واضحة</div><div class="csub">المهمة • السياق • النتيجة المطلوبة</div></div>
+</div></div>
+<div class="step" id="s3"><div class="card">
+  <div class="icon"><span class="num">٣</span><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="7" width="18" height="13" rx="2"/><path d="M8 7V5a2 2 0 0 1 2-2h4a2 2 0 0 1 2 2v2"/><path d="m9 13 2 2 4-4"/></svg></div>
+  <div class="ctext"><div class="ctitle">طبّق على عملك</div><div class="csub">تمرين عملي على تقرير أو مهمة</div></div>
+</div></div>
+<div class="step" id="s4"><div class="card">
+  <div class="icon"><span class="num">٤</span><svg viewBox="0 0 24 24" fill="none" stroke="#C9A25D" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round"><circle cx="11" cy="11" r="7"/><path d="m21 21-4.3-4.3"/><path d="m8 11 2 2 4-4"/></svg></div>
+  <div class="ctext"><div class="ctitle">راجع وطوّر</div><div class="csub">قارن النتيجة بالمصدر وحسّنها</div></div>
+</div></div>
+<div class="layer" id="dotsL"><div class="dots"><div class="dot" id="d1"></div><div class="dot" id="d2"></div><div class="dot" id="d3"></div><div class="dot" id="d4"></div></div></div>
+
+<!-- 14–17 transformation -->
+<div class="layer" id="L4">
+  <div class="block" style="top:1170px">
+    <div class="h2" id="L4a">من معرفة الأدوات…</div>
+    <div class="h2 gold" id="L4b" style="font-size:72px">إلى إتقان استخدامها</div>
+    <div class="rule" id="L4rule"></div>
+  </div>
+</div>
+
+<!-- 17–20 end card -->
+<div id="end">
+  <div class="frame"></div><div class="arc"></div><div class="arc arc2"></div><div id="sheen"></div>
+  <div id="logo"><div class="word">نهج</div><div class="tag">للاستشارات والتدريب</div></div>
+  <div id="endRule"></div>
+  <div id="endMain">طوّر مهاراتك مع نهج</div>
+  <div id="endSub"><span>استفسر عن برامج الذكاء الاصطناعي</span></div>
+</div>
+
+<script>
+const $ = id => document.getElementById(id);
+const clamp = (x,a=0,b=1) => Math.max(a, Math.min(b, x));
+const easeOut = x => 1 - Math.pow(1 - clamp(x), 3);
+const easeInOut = x => { x = clamp(x); return x < .5 ? 4*x*x*x : 1 - Math.pow(-2*x+2, 3)/2; };
+// visibility envelope: fade in over fi, fade out over fo
+function env(t, a, b, fi=.35, fo=.3) {
+  if (t < a || t > b) return 0;
+  return Math.min(clamp((t-a)/fi), clamp((b-t)/fo));
+}
+function set(el, o, ty=0, sc=1, extra='') {
+  el.style.opacity = o;
+  el.style.transform = `translateY(${ty}px) scale(${sc}) ${extra}`;
+}
+window.render = function(t) {
+  // global legibility gradient while footage is on screen
+  $('grad').style.opacity = t < 17.1 ? env(t, 0, 17.3, .2, .4) : 0;
+  $('gradTop').style.opacity = env(t, 7.0, 14.0, .3, .3);
+
+  // 0–3 hook (visible from first frame for silent autoplay)
+  { const o = t < 2.75 ? 1 : env(t, 0, 3.0, .01, .25); const p = easeOut(t/.45);
+    set($('L1'), o, (1-p)*40, 1);
+    $('L1rule').style.transform = `scaleX(${easeOut((t-.25)/.6)})`; }
+
+  // 3–7 value
+  { const o = env(t, 3.05, 6.95, .35, .3); const p = easeOut((t-3.05)/.5);
+    set($('L2'), o, (1-p)*40);
+    ['c1','c2','c3'].forEach((id,i) => { const s = 3.6 + i*.45; const q = easeOut((t-s)/.45);
+      const el = $(id); el.style.opacity = clamp((t-s)/.3) * o; el.style.transform = `translateY(${(1-q)*30}px)`; }); }
+
+  // 7–14 steps
+  { const o = env(t, 7.0, 14.0, .3, .3); set($('how'), o, (1-easeOut((t-7)/.5))*-30);
+    set($('dotsL'), o);
+    const starts = [8.94, 10.32, 11.59, 12.67];
+    starts.forEach((s,i) => { const e = (i<3 ? starts[i+1] : 14.0) - .02;
+      const oo = env(t, s, e, .28, .22); const q = easeOut((t-s)/.45);
+      const leave = clamp((t-(e-.22))/.22);
+      set($('s'+(i+1)), oo, (1-q)*50 - leave*20, .96 + .04*q);
+      $('d'+(i+1)).className = 'dot' + (t >= s && t < e+.02 ? ' on' : ''); }); }
+
+  // 14–17 transformation
+  { const o = env(t, 14.05, 17.0, .3, .25);
+    $('L4').style.opacity = o;
+    const a = easeOut((t-14.1)/.5), b = easeOut((t-14.9)/.55);
+    set($('L4a'), clamp((t-14.1)/.35), (1-a)*30);
+    set($('L4b'), clamp((t-14.9)/.35), (1-b)*30);
+    $('L4rule').style.transform = `scaleX(${easeOut((t-15.4)/.6)})`; }
+
+  // 17–20 end card (holds fully legible from ~18.0 to 20.0)
+  { const o = clamp((t-16.85)/.35); $('end').style.opacity = o;
+    const lg = easeOut((t-17.1)/.6); set($('logo'), clamp((t-17.1)/.45), (1-lg)*30, .94+.06*lg);
+    $('endRule').style.transform = `scaleX(${easeOut((t-17.45)/.6)})`;
+    const m = easeOut((t-17.55)/.5); set($('endMain'), clamp((t-17.55)/.35), (1-m)*30);
+    const s2 = easeOut((t-17.85)/.5); set($('endSub'), clamp((t-17.85)/.35), (1-s2)*24, .96+.04*s2);
+    $('sheen').style.left = (-300 + easeInOut((t-17.3)/1.6)*1500) + 'px';
+    document.querySelectorAll('#end .arc').forEach((a,i)=>{ a.style.transform = `scale(${.92 + .08*easeOut((t-17)/1.5) + i*0})`; }); }
+};
+window.render(0);
+</script>
+</body>
+</html>
