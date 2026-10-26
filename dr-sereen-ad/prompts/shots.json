@@ -1,0 +1,56 @@
+{
+  "project": "Dr. Sereen - Flying Tesla Cybertruck commercial",
+  "format": {"aspect_ratio": "9:16", "resolution": "1080x1920", "fps": 24, "duration_s": 30},
+  "continuity_bible": {
+    "doctor": "Dr. Sereen: woman in her late 20s, long straight dark-brown hair worn down past the shoulders, no headscarf, soft round face, warm brown eyes, natural pink lips, subtle makeup, small gold hoop earrings, thin gold necklace with a small ring pendant, gold bracelets. Wardrobe: crisp white doctor's lab coat over a silky watercolor-floral blouse (pink, coral, yellow, mint), beige tailored trousers, nude pumps. Preserve her real face exactly as in the portrait reference; no beautification, no age change.",
+    "car": "Tesla Cybertruck, brushed raw stainless-steel body, angular wedge silhouette, full-width white LED light bar across the front, black wheel-arch cladding, black multi-spoke wheels with chunky all-terrain tyres, tinted glass. Left-hand drive; she sits in the left (driver) seat. Same truck in every shot, never changes model, color or proportions.",
+    "thrusters": "Fictional cinematic thruster pods mounted under the chassis behind each wheel: short focused flames with a blue-white core and thin orange edges, white-grey volumetric smoke. Clearly fantasy VFX, not a real Tesla feature.",
+    "light": "Late-afternoon golden hour, warm low sun from screen-right, clear sky, realistic reflections on stainless panels and glass.",
+    "grade": "Premium automotive commercial look, natural contrast, warm highlights, neutral shadows, no heavy glow."
+  },
+  "negative": "no face morphing, no identity change, no extra fingers, no deformed hands, no duplicate people, no duplicate cars, no car model change, no warped wheels, no objects passing through each other, no explosion, no fire spreading, no flames touching people or cars, no text, no watermark, no logos other than the clinic sign, no headscarf on the doctor",
+  "shots": [
+    {
+      "id": "S1", "timeline": "0.0-4.0", "clip_duration": 5,
+      "keyframe_prompt": "Photorealistic vertical 9:16 frame based on the location reference: a wide, busy multi-lane boulevard in Doha with the Aspire Tower and the terracotta-and-pink mall facades in the background exactly as in the reference photo, bumper-to-bumper traffic of white and silver SUVs and sedans with realistic gaps, a stainless-steel Tesla Cybertruck stuck in the middle lane in the mid-ground. Slightly elevated camera, golden late-afternoon sun, heat haze, realistic shadows.",
+      "video_prompt": "Slow cinematic push-in from a slightly elevated wide shot toward the stainless-steel Tesla Cybertruck stuck in dense, stationary traffic on the boulevard. Cars inch forward a little, brake lights glow, light heat shimmer above the asphalt. Golden-hour light, natural depth of field, steady gimbal camera, no cuts.",
+      "references": ["location", "car_concept"]
+    },
+    {
+      "id": "S2a", "timeline": "4.0-6.3", "clip_duration": 4,
+      "keyframe_prompt": "Photorealistic medium shot from the passenger side inside a Tesla Cybertruck cabin: Dr. Sereen (exact face from the portrait reference) in the driver seat, white lab coat over the watercolor-floral blouse, seatbelt fastened across her chest, both hands on the yoke-style steering wheel, looking ahead through the windscreen at traffic. Warm golden light through the glass, soft reflections on the windscreen, minimal grey interior with large center touchscreen.",
+      "video_prompt": "Medium interior shot. Dr. Sereen looks at the stalled traffic ahead, then turns her eyes slightly and a calm, confident smile appears. Subtle handheld-smooth camera drift, glass reflections slide gently across the frame. Her face stays identical to the reference, hands steady on the wheel, seatbelt visible.",
+      "references": ["doctor_portrait", "car_concept"]
+    },
+    {
+      "id": "S2b", "timeline": "6.3-8.0", "clip_duration": 4,
+      "keyframe_prompt": "Photorealistic macro close-up of a woman's right hand (gold bracelets, white lab-coat cuff) with her index finger about to press a small round futuristic button glowing soft cyan on the Cybertruck center console beside the touchscreen. Shallow depth of field, warm interior light, five natural fingers, realistic nails.",
+      "video_prompt": "Macro close-up. Her index finger presses the small glowing cyan button; the ring of light pulses brighter and a thin line of light runs across the console. Very slow push-in. Anatomically correct hand with five fingers, no extra fingers.",
+      "references": ["doctor_portrait"]
+    },
+    {
+      "id": "S3", "timeline": "8.0-14.0", "clip_duration": 6,
+      "keyframe_prompt": "Photorealistic low three-quarter front angle at road level: the stainless-steel Tesla Cybertruck on the asphalt amid stationary traffic, fictional thruster pods visible under the chassis behind each wheel just starting to emit white-grey smoke. Golden-hour sun, Aspire Tower soft in the background, realistic shadow under the truck.",
+      "video_prompt": "Low three-quarter angle. Under the Cybertruck short, focused thruster flames ignite with a blue-white core and thin orange edges, white-grey volumetric smoke billows and rolls outward along the asphalt. The truck rises steadily and smoothly: first a few centimetres, wheels unloading, then climbs above the roofs of the surrounding cars. Its shadow on the road shrinks and softens as it climbs, flame light reflects on the underbody and the road. Flames stay directly under the pods, never touching cars, no explosion. Camera tilts up slowly to follow.",
+      "references": ["car_concept", "location"]
+    },
+    {
+      "id": "S4", "timeline": "14.0-20.0", "clip_duration": 6,
+      "keyframe_prompt": "Photorealistic side tracking shot in the air: the stainless-steel Tesla Cybertruck flying level above a busy boulevard, about two storeys above the traffic, Dr. Sereen visible through the driver window, thruster flames small and blue under the chassis with light smoke trails, golden-hour city background with palm trees and low-rise buildings.",
+      "video_prompt": "Smooth side tracking shot moving with the flying Cybertruck from left to right above the boulevard; light vapour trails stream behind the thruster pods, air distortion under the truck. Halfway through the camera eases forward to a short front-oblique angle as the truck banks gently. The truck keeps the same size, shape and direction of travel; Dr. Sereen remains calmly seated at the wheel.",
+      "references": ["car_concept", "doctor_portrait"]
+    },
+    {
+      "id": "S5", "timeline": "20.0-25.0", "clip_duration": 5,
+      "keyframe_prompt": "Photorealistic frame of the clinic exterior exactly as in the clinic reference: cream two-storey building with terracotta roof tiles, black sign 'AL MASA MEDICAL CENTER' and the Arabic 'مركز الماسة الطبي' with the AM diamond logo, glass entrance, interlocking-paver forecourt clear of people. The stainless-steel Cybertruck hovering about three metres above the empty forecourt, soft smoke beneath, golden-hour light.",
+      "video_prompt": "The Cybertruck descends slowly and steadily onto the empty paved forecourt in front of the clinic entrance. Thruster flames shrink and fade out, smoke spreads low across the pavers and thins, the truck's shadow grows sharp and meets the wheels at touchdown. Gentle realistic suspension compression and a single small settle, no bounce. Clinic facade and signage stay perfectly stable and legible. Static camera with a slight push-in.",
+      "references": ["clinic", "car_concept"]
+    },
+    {
+      "id": "S6", "timeline": "25.0-30.0", "clip_duration": 6,
+      "keyframe_prompt": "Photorealistic medium shot in front of the clinic (clinic reference): the parked stainless-steel Cybertruck with its front-hinged driver door open, Dr. Sereen (exact face from portrait reference) stepping out with one foot on the pavers, white lab coat, floral blouse, beige trousers, nude pumps, faint smoke drifting behind the truck, golden-hour light.",
+      "video_prompt": "Dr. Sereen steps out of the open driver door with natural, confident steps, feet planted realistically on the pavers, lets go of the door and walks a few steps toward the clinic entrance, then pauses and turns her head toward the camera with a calm smile. Thin wisps of residual smoke drift behind the truck. Slow arc of the camera ending on an elegant heroic medium-wide composition with space above her head for titles.",
+      "references": ["clinic", "doctor_portrait", "car_concept"]
+    }
+  ]
+}

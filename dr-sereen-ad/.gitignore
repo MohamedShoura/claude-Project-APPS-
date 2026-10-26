@@ -1,0 +1,9 @@
+# reference photos and render outputs stay out of git
+refs/
+clips/
+gfx/
+audio/
+out/
+fonts/
+*.mp4
+*.wav
