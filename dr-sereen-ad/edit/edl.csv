@@ -1,6 +1,6 @@
 shot,src_in,dur,speed,note
 S1,0.5,4.0,1.0,traffic wide push-in (0.0-4.0)
-S2a,0.3,2.3,1.0,interior smile (4.0-6.3)
+S2a,0.2,2.3,1.0,interior smile (4.0-6.3)
 S2b,0.6,1.7,1.0,button macro (6.3-8.0)
 S3,0.0,6.0,1.0,thruster ignition + lift-off - climax (8.0-14.0)
 S4,0.0,6.0,1.0,flight tracking + front-oblique (14.0-20.0)

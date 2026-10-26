@@ -5,8 +5,8 @@ Usage: python3 make_graphics.py <clinic_facade.jpg> <fonts_dir> <out_dir>
 Outputs (1080x1920 RGBA PNGs):
   logo_white.png      - AM diamond logo lifted from the real sign, recoloured white
   sign_white.png      - full clinic sign (Arabic + English + logo), white
-  endcard_titles.png  - logo + "د. سيرين" + tagline, upper safe area
-  endcard_sign.png    - clinic sign plate, lower third
+  endcard_titles.png  - logo + "د. سيرين" + tagline, lower-third safe area
+  endcard_sign.png    - optional clinic sign plate (unused when the real sign is in shot)
 """
 import sys
 from pathlib import Path
@@ -76,10 +76,10 @@ def main(src, fonts, out):
     sign.save(out / "sign_white.png")
 
     card = Image.new("RGBA", (W, H), (0, 0, 0, 0))
-    # soft dark gradient at the top for legibility (titles sit in the upper safe area)
+    # soft dark gradient at the bottom: the clinic sign and her face fill the top of the hero shot
     grad = np.zeros((H, W, 4), np.uint8)
-    ramp = np.clip(1 - np.arange(H) / 900.0, 0, 1) ** 1.6
-    grad[..., 3] = (ramp[:, None] * 150).astype(np.uint8)
+    ramp = np.clip((np.arange(H) - 950) / 650.0, 0, 1) ** 1.3
+    grad[..., 3] = (ramp[:, None] * 175).astype(np.uint8)
     card = Image.alpha_composite(card, Image.fromarray(grad, "RGBA"))
 
     d = ImageDraw.Draw(card)
@@ -87,7 +87,8 @@ def main(src, fonts, out):
     name_font = ImageFont.truetype(str(Path(fonts) / "Tajawal-Bold.ttf"), 120)
     tag_font = ImageFont.truetype(str(Path(fonts) / "Tajawal-Medium.ttf"), 58)
 
-    y = 250
+    # lower third, kept above the bottom ~300 px that Reels covers with captions and buttons
+    y = 1130
     lw = 230
     lg = logo.resize((lw, int(logo.height * lw / logo.width)), Image.LANCZOS)
     card.alpha_composite(lg, ((W - lg.width) // 2, y))

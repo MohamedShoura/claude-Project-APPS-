@@ -3,7 +3,7 @@
 #
 # Usage: build.sh <clips_dir> <gfx_dir> <mix.wav> <out_dir>
 #   clips_dir: S1.mp4 S2a.mp4 S2b.mp4 S3.mp4 S4.mp4 S5.mp4 S6.mp4
-#   gfx_dir:   endcard_titles.png endcard_sign.png (from make_graphics.py)
+#   gfx_dir:   endcard_titles.png (from make_graphics.py)
 # Outputs: dr_sereen_final.mp4 (titles + logo) and dr_sereen_clean.mp4 (no titles),
 # both H.264 High, 1080x1920, 24 fps, AAC 48 kHz.
 set -euo pipefail
@@ -33,10 +33,10 @@ ffmpeg -nostdin -v error -y -i "$OUT/segments/picture.mp4" -i "$MIX" \
   -map 0:v -map 1:a -c:v libx264 -preset slow -crf 17 -profile:v high -pix_fmt yuv420p -r 24 \
   -c:a aac -b:a 256k -ar 48000 -movflags +faststart -shortest "$OUT/dr_sereen_clean.mp4"
 
-# Final version: end card fades in at 27.0 s (titles) and 27.6 s (clinic sign plate).
+# Final version: logo + name + tagline fade in at 27.0 s (the real clinic sign is already in shot).
 ffmpeg -nostdin -v error -y -i "$OUT/segments/picture.mp4" -i "$MIX" \
-  -loop 1 -t 30 -i "$GFX/endcard_titles.png" -loop 1 -t 30 -i "$GFX/endcard_sign.png" \
-  -filter_complex "[2:v]format=rgba,fade=t=in:st=27.0:d=0.7:alpha=1[t];[3:v]format=rgba,fade=t=in:st=27.6:d=0.7:alpha=1[s];[0:v][t]overlay=0:0[v1];[v1][s]overlay=0:0,format=yuv420p[v]" \
+  -loop 1 -t 30 -i "$GFX/endcard_titles.png" \
+  -filter_complex "[2:v]format=rgba,fade=t=in:st=27.0:d=0.7:alpha=1[t];[0:v][t]overlay=0:0,format=yuv420p[v]" \
   -map "[v]" -map 1:a -c:v libx264 -preset slow -crf 17 -profile:v high -r 24 \
   -c:a aac -b:a 256k -ar 48000 -movflags +faststart -t 30 "$OUT/dr_sereen_final.mp4"
 
