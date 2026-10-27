@@ -1,0 +1,454 @@
+{
+ "fps": 30,
+ "totalFrames": 10662,
+ "scenes": [
+  {
+   "id": "opening",
+   "type": "opening",
+   "from": 0,
+   "durationInFrames": 396,
+   "narration": {
+    "id": "n01",
+    "offsetFrames": 27
+   }
+  },
+  {
+   "id": "event",
+   "type": "event",
+   "from": 396,
+   "durationInFrames": 327,
+   "narration": {
+    "id": "n02",
+    "offsetFrames": 15
+   }
+  },
+  {
+   "id": "creative",
+   "type": "creative",
+   "from": 723,
+   "durationInFrames": 435,
+   "narration": {
+    "id": "n03",
+    "offsetFrames": 15
+   }
+  },
+  {
+   "id": "inspiring",
+   "type": "inspiring",
+   "from": 1158,
+   "durationInFrames": 257,
+   "narration": {
+    "id": "n04",
+    "offsetFrames": 15
+   }
+  },
+  {
+   "id": "chapter1",
+   "type": "chapter",
+   "chapter": 1,
+   "from": 1415,
+   "durationInFrames": 166,
+   "narration": {
+    "id": "n05",
+    "offsetFrames": 11
+   }
+  },
+  {
+   "id": "d01",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 1,
+   "from": 1581,
+   "durationInFrames": 407
+  },
+  {
+   "id": "d02",
+   "type": "debate",
+   "side": "inspiring",
+   "chapter": 1,
+   "from": 1988,
+   "durationInFrames": 446
+  },
+  {
+   "id": "d03",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 1,
+   "from": 2434,
+   "durationInFrames": 392
+  },
+  {
+   "id": "d04",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 1,
+   "from": 2826,
+   "durationInFrames": 342
+  },
+  {
+   "id": "chapter2",
+   "type": "chapter",
+   "chapter": 2,
+   "from": 3168,
+   "durationInFrames": 157,
+   "narration": {
+    "id": "n06",
+    "offsetFrames": 11
+   }
+  },
+  {
+   "id": "d05",
+   "type": "debate",
+   "side": "inspiring",
+   "chapter": 2,
+   "from": 3325,
+   "durationInFrames": 332
+  },
+  {
+   "id": "d06",
+   "type": "debate",
+   "side": "inspiring",
+   "chapter": 2,
+   "from": 3657,
+   "durationInFrames": 303
+  },
+  {
+   "id": "d07",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 2,
+   "from": 3960,
+   "durationInFrames": 2528
+  },
+  {
+   "id": "chapter3",
+   "type": "chapter",
+   "chapter": 3,
+   "from": 6488,
+   "durationInFrames": 180,
+   "narration": {
+    "id": "n07",
+    "offsetFrames": 11
+   }
+  },
+  {
+   "id": "d08",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 3,
+   "from": 6668,
+   "durationInFrames": 465
+  },
+  {
+   "id": "d09",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 3,
+   "from": 7133,
+   "durationInFrames": 288
+  },
+  {
+   "id": "d10",
+   "type": "debate",
+   "side": "inspiring",
+   "chapter": 3,
+   "from": 7421,
+   "durationInFrames": 299
+  },
+  {
+   "id": "d11",
+   "type": "debate",
+   "side": "creative",
+   "chapter": 3,
+   "from": 7720,
+   "durationInFrames": 333
+  },
+  {
+   "id": "chapter4",
+   "type": "chapter",
+   "chapter": 4,
+   "from": 8053,
+   "durationInFrames": 175,
+   "narration": {
+    "id": "n08",
+    "offsetFrames": 11
+   }
+  },
+  {
+   "id": "d12",
+   "type": "debate",
+   "side": "both",
+   "chapter": 4,
+   "from": 8228,
+   "durationInFrames": 476
+  },
+  {
+   "id": "d13",
+   "type": "debate",
+   "side": "both",
+   "chapter": 4,
+   "from": 8704,
+   "durationInFrames": 201
+  },
+  {
+   "id": "d14",
+   "type": "debate",
+   "side": "both",
+   "chapter": 4,
+   "from": 8905,
+   "durationInFrames": 455
+  },
+  {
+   "id": "d15",
+   "type": "debate",
+   "side": "both",
+   "chapter": 4,
+   "from": 9360,
+   "durationInFrames": 246
+  },
+  {
+   "id": "d16",
+   "type": "debate",
+   "side": "both",
+   "chapter": 4,
+   "from": 9606,
+   "durationInFrames": 153
+  },
+  {
+   "id": "honoring",
+   "type": "honoring",
+   "from": 9759,
+   "durationInFrames": 405,
+   "narration": {
+    "id": "n09",
+    "offsetFrames": 15
+   }
+  },
+  {
+   "id": "closing",
+   "type": "closing",
+   "from": 10164,
+   "durationInFrames": 363,
+   "narration": {
+    "id": "n10",
+    "offsetFrames": 15
+   }
+  },
+  {
+   "id": "credit",
+   "type": "credit",
+   "from": 10527,
+   "durationInFrames": 135
+  }
+ ],
+ "audio": [
+  {
+   "kind": "narration",
+   "id": "n01",
+   "file": "assets/audio/narration/n01.mp3",
+   "start": 0.9,
+   "duration": 11.389,
+   "text": "حين يقف جيلان على منصة واحدة، لا يكون الحوار صراعًا… بل جسرًا يعبر عليه كلٌّ منهما إلى الآخر."
+  },
+  {
+   "kind": "narration",
+   "id": "n02",
+   "file": "assets/audio/narration/n02.mp3",
+   "start": 13.7,
+   "duration": 8.986,
+   "text": "في فعالية اليوم الدولي للتعليم، أُقيمت مناظرة بين جيلين: جيلٍ أبدع، وجيلٍ أبهر."
+  },
+  {
+   "kind": "narration",
+   "id": "n03",
+   "file": "assets/audio/narration/n03.mp3",
+   "start": 24.6,
+   "duration": 10.762,
+   "text": "من الجيل المُبدع: معلمات وأخصائيات ورائدة أعمال، من ميادين التعليم والعمل المجتمعي، إلى جانب أولياء الأمور."
+  },
+  {
+   "kind": "narration",
+   "id": "n04",
+   "file": "assets/audio/narration/n04.mp3",
+   "start": 39.1,
+   "duration": 6.766,
+   "text": "وفي المقابل، الجيل المُبهر: طالبات ثانوية روضة بنت محمد."
+  },
+  {
+   "kind": "narration",
+   "id": "n05",
+   "file": "assets/audio/narration/n05.mp3",
+   "start": 47.51666666666667,
+   "duration": 4.284,
+   "text": "المحور الأول: الورقة… أم الارتجال؟"
+  },
+  {
+   "kind": "debate",
+   "id": "d01",
+   "file": "assets/audio/debate/d01.wav",
+   "start": 52.85,
+   "duration": 13.15,
+   "side": "creative"
+  },
+  {
+   "kind": "debate",
+   "id": "d02",
+   "file": "assets/audio/debate/d02.wav",
+   "start": 66.41666666666667,
+   "duration": 14.45,
+   "side": "inspiring"
+  },
+  {
+   "kind": "debate",
+   "id": "d03",
+   "file": "assets/audio/debate/d03.wav",
+   "start": 81.28333333333333,
+   "duration": 12.65,
+   "side": "creative"
+  },
+  {
+   "kind": "debate",
+   "id": "d04",
+   "file": "assets/audio/debate/d04.wav",
+   "start": 94.35,
+   "duration": 11,
+   "side": "creative"
+  },
+  {
+   "kind": "narration",
+   "id": "n06",
+   "file": "assets/audio/narration/n06.mp3",
+   "start": 105.94999999999999,
+   "duration": 3.971,
+   "text": "المحور الثاني: بين الحفظ… والفهم."
+  },
+  {
+   "kind": "debate",
+   "id": "d05",
+   "file": "assets/audio/debate/d05.wav",
+   "start": 110.98333333333333,
+   "duration": 10.65,
+   "side": "inspiring"
+  },
+  {
+   "kind": "debate",
+   "id": "d06",
+   "file": "assets/audio/debate/d06.wav",
+   "start": 122.05,
+   "duration": 9.7,
+   "side": "inspiring"
+  },
+  {
+   "kind": "debate",
+   "id": "d07",
+   "file": "assets/audio/debate/d07.wav",
+   "start": 132.15,
+   "duration": 83.85,
+   "side": "creative"
+  },
+  {
+   "kind": "narration",
+   "id": "n07",
+   "file": "assets/audio/narration/n07.mp3",
+   "start": 216.61666666666665,
+   "duration": 4.754,
+   "text": "المحور الثالث: ما يتعلّمه كل جيل من الآخر."
+  },
+  {
+   "kind": "debate",
+   "id": "d08",
+   "file": "assets/audio/debate/d08.wav",
+   "start": 222.41666666666666,
+   "duration": 15.1,
+   "side": "creative"
+  },
+  {
+   "kind": "debate",
+   "id": "d09",
+   "file": "assets/audio/debate/d09.wav",
+   "start": 237.91666666666666,
+   "duration": 9.2,
+   "side": "creative"
+  },
+  {
+   "kind": "debate",
+   "id": "d10",
+   "file": "assets/audio/debate/d10.wav",
+   "start": 247.51666666666665,
+   "duration": 9.55,
+   "side": "inspiring"
+  },
+  {
+   "kind": "debate",
+   "id": "d11",
+   "file": "assets/audio/debate/d11.wav",
+   "start": 257.4833333333333,
+   "duration": 10.7,
+   "side": "creative"
+  },
+  {
+   "kind": "narration",
+   "id": "n08",
+   "file": "assets/audio/narration/n08.mp3",
+   "start": 268.78333333333336,
+   "duration": 4.598,
+   "text": "المحور الرابع: الهوية، والطموح المشترك."
+  },
+  {
+   "kind": "debate",
+   "id": "d12",
+   "file": "assets/audio/debate/d12.wav",
+   "start": 274.41666666666663,
+   "duration": 15.45,
+   "side": "both"
+  },
+  {
+   "kind": "debate",
+   "id": "d13",
+   "file": "assets/audio/debate/d13.wav",
+   "start": 290.2833333333333,
+   "duration": 6.3,
+   "side": "both"
+  },
+  {
+   "kind": "debate",
+   "id": "d14",
+   "file": "assets/audio/debate/d14.wav",
+   "start": 296.9833333333333,
+   "duration": 14.75,
+   "side": "both"
+  },
+  {
+   "kind": "debate",
+   "id": "d15",
+   "file": "assets/audio/debate/d15.wav",
+   "start": 312.15,
+   "duration": 7.8,
+   "side": "both"
+  },
+  {
+   "kind": "debate",
+   "id": "d16",
+   "file": "assets/audio/debate/d16.wav",
+   "start": 320.34999999999997,
+   "duration": 4.7,
+   "side": "both"
+  },
+  {
+   "kind": "narration",
+   "id": "n09",
+   "file": "assets/audio/narration/n09.mp3",
+   "start": 325.8,
+   "duration": 8.202,
+   "text": "وفي الختام، كُرّمت المشاركات بشهادات الشكر والتقدير، امتنانًا لحضورهن وعطائهن."
+  },
+  {
+   "kind": "narration",
+   "id": "n10",
+   "file": "assets/audio/narration/n10.mp3",
+   "start": 339.3,
+   "duration": 10.109,
+   "text": "جيلان يختلفان في الأسلوب، ويلتقيان على طموح واحد: نهضة قطر. لأن التعليم… مسؤولية الجميع."
+  }
+ ]
+}

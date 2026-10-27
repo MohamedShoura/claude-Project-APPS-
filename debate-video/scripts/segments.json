@@ -1,0 +1,35 @@
+{
+  "_note": "أزمنة القص داخل الفيديو المرجعي (بالثواني). اختيرت نقاط القص عند أهدأ لحظة قرب كل انتقال مشهد. 'side' هو الجيل كما نسبه الفيديو المرجعي للعبارة.",
+  "debate": [
+    {"id": "d01", "start": 50.9,  "end": 64.05,  "side": "creative", "chapter": 1},
+    {"id": "d02", "start": 64.05, "end": 78.5,   "side": "inspiring", "chapter": 1},
+    {"id": "d03", "start": 78.5,  "end": 91.15,  "side": "creative", "chapter": 1},
+    {"id": "d04", "start": 91.15, "end": 102.15, "side": "creative", "chapter": 1},
+    {"id": "d05", "start": 102.15,"end": 112.8,  "side": "inspiring", "chapter": 2},
+    {"id": "d06", "start": 112.8, "end": 122.5,  "side": "inspiring", "chapter": 2},
+    {"id": "d07", "start": 122.5, "end": 206.35, "side": "creative", "chapter": 2},
+    {"id": "d08", "start": 206.35,"end": 221.45, "side": "creative", "chapter": 3},
+    {"id": "d09", "start": 221.45,"end": 230.65, "side": "creative", "chapter": 3},
+    {"id": "d10", "start": 230.65,"end": 240.2,  "side": "inspiring", "chapter": 3},
+    {"id": "d11", "start": 240.2, "end": 250.9,  "side": "creative", "chapter": 3},
+    {"id": "d12", "start": 250.9, "end": 266.35, "side": "both", "chapter": 4},
+    {"id": "d13", "start": 266.35,"end": 272.65, "side": "both", "chapter": 4},
+    {"id": "d14", "start": 272.65,"end": 287.4,  "side": "both", "chapter": 4},
+    {"id": "d15", "start": 287.4, "end": 295.2,  "side": "both", "chapter": 4},
+    {"id": "d16", "start": 295.2, "end": 299.9,  "side": "both", "chapter": 4}
+  ],
+  "clips": [
+    {"id": "hall-slide", "start": 6.0, "end": 10.5, "crop": [58, 208, 350, 268]},
+    {"id": "hall-slide-2", "start": 223.0, "end": 230.4, "crop": [128, 198, 260, 200]}
+  ],
+  "photos": [
+    {"id": "p01", "t": 302.0, "tile": "TL"}, {"id": "p02", "t": 302.0, "tile": "TR"},
+    {"id": "p03", "t": 302.0, "tile": "M"},  {"id": "p04", "t": 302.0, "tile": "BR"},
+    {"id": "p05", "t": 308.0, "tile": "TL"}, {"id": "p06", "t": 308.0, "tile": "TR"},
+    {"id": "p07", "t": 308.0, "tile": "BL"}, {"id": "p08", "t": 308.0, "tile": "BR"},
+    {"id": "p09", "t": 312.0, "tile": "TL"}, {"id": "p10", "t": 312.0, "tile": "TR"},
+    {"id": "p11", "t": 312.0, "tile": "M"},  {"id": "p12", "t": 312.0, "tile": "BL"},
+    {"id": "p13", "t": 312.0, "tile": "BR"}
+  ],
+  "tiles": {"TL": [40,166,166,127], "TR": [255,166,165,127], "M": [135,354,165,127], "BL": [40,542,166,127], "BR": [271,542,166,127]}
+}

@@ -1,0 +1,7 @@
+node_modules/
+out/stills/
+out/*.wav
+out/*.log
+out/preview-range.mp4
+out/final/x264pass*
+public/assets/audio/music/bed.wav
