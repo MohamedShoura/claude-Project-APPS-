@@ -10,11 +10,11 @@ loadFonts();
 export const Thumbnail: React.FC<{layout: Layout}> = ({layout}) => {
   const v = layout === 'vertical';
   const brand: React.CSSProperties = {
-    fontFamily: LATIN, fontWeight: 300, fontSize: v ? 76 : 70, letterSpacing: '0.5em', marginRight: '-0.5em',
+    fontFamily: LATIN, fontWeight: 300, fontSize: v ? 56 : 50, letterSpacing: '0.5em', marginRight: '-0.5em',
     background: `linear-gradient(100deg, ${COLORS.copper} 0%, ${COLORS.copperLight} 45%, ${COLORS.copper} 70%, #9C6440 100%)`,
     WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', whiteSpace: 'nowrap',
   };
-  const ar: React.CSSProperties = {fontFamily: AR, fontWeight: 500, fontSize: v ? 66 : 58, color: COLORS.cream, textShadow: '0 2px 20px rgba(0,0,0,.7)'};
+  const ar: React.CSSProperties = {fontFamily: AR, fontWeight: 500, fontSize: v ? 60 : 50, color: COLORS.cream, textShadow: '0 2px 20px rgba(0,0,0,.7)'};
   const rule = <div style={{height: 2, width: 360, background: `linear-gradient(90deg, transparent, ${COLORS.copper}, transparent)`}} />;
   return (
     <AbsoluteFill style={{backgroundColor: COLORS.espresso}}>
