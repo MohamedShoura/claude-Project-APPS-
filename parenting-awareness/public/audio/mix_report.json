@@ -1,0 +1,12 @@
+{
+  "total_sec": 19.0,
+  "vo_offset_sec": 0.7,
+  "vo_duration_sec": 15.6,
+  "vo_end_sec": 16.3,
+  "music_loop_len_sec": 6.656,
+  "music_loop_similarity": 0.964,
+  "mix_peak_dbfs": -1.5,
+  "mix_rms_dbfs": -19.89,
+  "limiter_max_reduction_db": -0.0,
+  "clipped_samples": 0
+}
